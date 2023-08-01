@@ -1,6 +1,6 @@
 ﻿namespace Triangulos.Entities
 {
-    public class Triangulo
+    abstract class Triangulo
     {
         public virtual double CatetoA { get; protected set; }
         public double CatetoB { get; protected set; }
@@ -10,17 +10,19 @@
         {
 
         }
-        public Triangulo(double catetoA, double catetoB)
-        {
-            CatetoA = catetoA;
-            CatetoB = catetoB;
-            Hipotenusa = CalcularHipotenusa();
-        }
+        
         public Triangulo(double catetoA, double catetoB, double hipotenusa)
         {
             CatetoA = catetoA;
             CatetoB = catetoB;
-            Hipotenusa = hipotenusa;
+            if (hipotenusa == 0)
+            {
+                Hipotenusa = CalcularHipotenusa();
+            }
+            else
+            {
+                Hipotenusa = hipotenusa;
+            }
         }
 
         public double CalcularHipotenusa()
@@ -29,15 +31,7 @@
             return Math.Sqrt(SomaDosLadosCatetos);
         }
 
-        public bool ValidaEscaleno() => CatetoA != CatetoB && CatetoB != Hipotenusa && Hipotenusa != CatetoA;
-
-        public bool ValidaIsosceles() => CatetoA == CatetoB || CatetoB == Hipotenusa || Hipotenusa == CatetoA;
-
-        public bool ValidaEquilatero() => CatetoA == CatetoB && CatetoB == Hipotenusa && Hipotenusa == CatetoA;
-
-        public bool ValidarTrianguloRetangulo() => Math.Round(Math.Pow(CatetoA, 2) + Math.Pow(CatetoB, 2)) == Math.Round(Math.Pow(Hipotenusa, 2));
-
-        public virtual double CalArea() => 0;
+        abstract protected double CalArea();
 
         public double CalcPerimetro() => CatetoA + CatetoB + Hipotenusa;
 

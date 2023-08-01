@@ -9,20 +9,19 @@ namespace Triangulos.Entities
     class TrianguloEscaleno : Triangulo
     {
         
-        public TrianguloEscaleno(double catetoA, double catetoB) : base(catetoA, catetoB)
-        {
-
-        }
         public TrianguloEscaleno(double catetoA, double catetoB, double hipotenusa) : base(catetoA, catetoB, hipotenusa)
         {
 
         }
-        public override double CalArea()
+        protected override double CalArea()
         {
-            double p = CatetoA + CatetoB + Hipotenusa;
-            return Math.Sqrt(p * (p - CatetoA) * (p - CatetoB) * (p - Hipotenusa));
+            double p = CalcPerimetro() / 2;
+            return p * (p - CatetoA) * (p - CatetoB) * (p - Hipotenusa);
+        }
+        public override string ToString()
+        {
+            return ($"Triangulo Escaleno\nÁrea: {CalArea().ToString("f3")}\nPerimetro: {CalcPerimetro()}");
         }
 
-        
     }
 }
